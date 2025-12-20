@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
+import uuid
+
 
 # Create your views here.
 def view1(request):
@@ -43,3 +45,12 @@ def temp1(request):
     return render(request,"./simple.html")
 def temp2(request):
     return render(request,"./second.html")
+
+def payment_api(request):
+    orderid=request.GET.get("order")
+    paymentmode=request.GET.get("payment")
+    amount=request.GET.get("amount")
+    transactionid = str(uuid.uuid4())
+    
+    info={"order_id":orderid,"payment_mode":paymentmode,"amount":amount,"Transaction_id":transactionid}
+    return JsonResponse(info)
