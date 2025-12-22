@@ -54,3 +54,83 @@ def payment_api(request):
     
     info={"order_id":orderid,"payment_mode":paymentmode,"amount":amount,"Transaction_id":transactionid}
     return JsonResponse(info)
+
+
+products = [
+    {
+        "id": 1,
+        "name": "Wireless Mouse",
+        "category": "Electronics",
+        "price": 599,
+        "stock": 150,
+        "rating": 4.5
+    },
+    {
+        "id": 2,
+        "name": "Bluetooth Headphones",
+        "category": "Electronics",
+        "price": 1299,
+        "stock": 80,
+        "rating": 4.3
+    },
+    {
+        "id": 3,
+        "name": "Notebook",
+        "category": "Stationery",
+        "price": 120,
+        "stock": 300,
+        "rating": 4.1
+    },
+    {
+        "id": 4,
+        "name": "Water Bottle",
+        "category": "Home",
+        "price": 250,
+        "stock": 200,
+        "rating": 4.0
+    },
+    {
+        "id": 5,
+        "name": "Keyboard",
+        "category": "Electronics",
+        "price": 999,
+        "stock": 60,
+        "rating": 4.4
+    }
+]
+
+
+
+def productsByitem(request,category):
+    filteredData = []
+    
+    for product in products:
+        if product["category"].lower()==category.lower():
+            filteredData.append(product)
+    
+    len(filteredData)
+    if len(filteredData)>0:
+      return JsonResponse({"data":filteredData,"message":"products records successfully fetched"},status=200)
+    elif len(filteredData)==0:
+      return JsonResponse({"data":filteredData,"message":"no content is available as per ur requirement"},status=404)
+    else:
+      return JsonResponse({"error":"something went wrong"})
+    
+    
+    
+def productByrating(request,rating):
+  rating = float(rating)
+  filteredData = []
+  
+  for product in products:
+    if product["rating"]>=rating:
+      filteredData.append(product)
+      
+      
+    len(filteredData)
+    if len(filteredData)>0:
+      return JsonResponse({"data":filteredData,"message":"products records successfully fetched"},status=200)
+    elif len(filteredData)==0:
+      return JsonResponse({"data":filteredData,"message":"no content is available as per ur requirement"},status=404)
+    else:
+      return JsonResponse({"error":"something went wrong"})
