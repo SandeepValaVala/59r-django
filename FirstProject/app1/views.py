@@ -56,49 +56,112 @@ def payment_api(request):
     return JsonResponse(info)
 
 
+# products = [
+#     {
+#         "id": 1,
+#         "name": "Wireless Mouse",
+#         "category": "Electronics",
+#         "price": 599,
+#         "stock": 150,
+#         "rating": 4.5
+#     },
+#     {
+#         "id": 2,
+#         "name": "Bluetooth Headphones",
+#         "category": "Electronics",
+#         "price": 1299,
+#         "stock": 80,
+#         "rating": 4.3
+#     },
+#     {
+#         "id": 3,
+#         "name": "Notebook",
+#         "category": "Stationery",
+#         "price": 120,
+#         "stock": 300,
+#         "rating": 4.1
+#     },
+#     {
+#         "id": 4,
+#         "name": "Water Bottle",
+#         "category": "Home",
+#         "price": 250,
+#         "stock": 200,
+#         "rating": 4.0
+#     },
+#     {
+#         "id": 5,
+#         "name": "Keyboard",
+#         "category": "Electronics",
+#         "price": 999,
+#         "stock": 60,
+#         "rating": 4.4
+#     }
+# ]
+
+
 products = [
     {
         "id": 1,
-        "name": "Wireless Mouse",
+        "title": "Wireless Mouse",
         "category": "Electronics",
+        "description": "Ergonomic wireless mouse with adjustable DPI",
         "price": 599,
-        "stock": 150,
-        "rating": 4.5
+        "rating": 4.5,
+        "stock": 120,
+        "image": "wireless_mouse.jpg"
     },
     {
         "id": 2,
-        "name": "Bluetooth Headphones",
+        "title": "Bluetooth Headphones",
         "category": "Electronics",
-        "price": 1299,
-        "stock": 80,
-        "rating": 4.3
+        "description": "Noise-cancelling over-ear Bluetooth headphones",
+        "price": 1999,
+        "rating": 4.3,
+        "stock": 60,
+        "image": "bluetooth_headphones.jpg"
     },
     {
         "id": 3,
-        "name": "Notebook",
-        "category": "Stationery",
-        "price": 120,
-        "stock": 300,
-        "rating": 4.1
+        "title": "Men's Casual T-Shirt",
+        "category": "Fashion",
+        "description": "100% cotton round-neck t-shirt",
+        "price": 499,
+        "rating": 4.1,
+        "stock": 200,
+        "image": "mens_tshirt.jpg"
     },
     {
         "id": 4,
-        "name": "Water Bottle",
-        "category": "Home",
-        "price": 250,
-        "stock": 200,
-        "rating": 4.0
+        "title": "Running Shoes",
+        "category": "Footwear",
+        "description": "Lightweight running shoes with cushioned sole",
+        "price": 2499,
+        "rating": 4.6,
+        "stock": 75,
+        "image": "running_shoes.jpg"
     },
     {
         "id": 5,
-        "name": "Keyboard",
+        "title": "Smart Watch",
         "category": "Electronics",
-        "price": 999,
-        "stock": 60,
-        "rating": 4.4
+        "description": "Fitness tracking smart watch with heart rate monitor",
+        "price": 3499,
+        "rating": 4.4,
+        "stock": 50,
+        "image": "smart_watch.jpg"
+    },
+    {
+        "id": 6,
+        "title": "Backpack",
+        "category": "Accessories",
+        "description": "Water-resistant backpack with laptop compartment",
+        "price": 1299,
+        "rating": 4.2,
+        "stock": 90,
+        "image": "backpack.jpg"
     }
 ]
-
 
 
 def productsByitem(request,category):
@@ -118,19 +181,39 @@ def productsByitem(request,category):
     
     
     
-def productByrating(request,rating):
-  rating = float(rating)
-  filteredData = []
+# def productByrating(request,rating):
+#   cnvfrt_rating = float(rating)
+#   print(cnvfrt_rating)
+#   filteredData = []
   
-  for product in products:
-    if product["rating"]>=rating:
-      filteredData.append(product)
+#   for product in products:
+#     if product["rating"]>=cnvfrt_rating:
+#       filteredData.append(product)
       
       
-    len(filteredData)
-    if len(filteredData)>0:
-      return JsonResponse({"data":filteredData,"message":"products records successfully fetched"},status=200)
-    elif len(filteredData)==0:
-      return JsonResponse({"data":filteredData,"message":"no content is available as per ur requirement"},status=404)
-    else:
-      return JsonResponse({"error":"something went wrong"})
+#     len(filteredData)
+#     if len(filteredData)>0:
+#       return JsonResponse({"data":filteredData,"message":"products records successfully fetched"},status=200)
+#     elif len(filteredData)==0:
+#       return JsonResponse({"data":filteredData,"message":"no content is available as per ur requirement"},status=404)
+#     else:
+#       return JsonResponse({"error":"something went wrong"})
+
+
+def productByrating(request,rating):
+    try:
+        cnvrt_rating = float(rating)
+        if request.method == 'GET':
+            filteredData = []
+            for product in products:
+                if product["rating"] >= cnvrt_rating: #(<=)
+                    filteredData.append(product)
+            if len(filteredData) == 0:
+                msg = "No products found"
+            else:
+                msg = "Products fetch successfully"
+            return JsonResponse({"status":"success","message":msg,"total no.of records":len(filteredData),"data":filteredData})
+        return JsonResponse({"status":"failure","message":msg})
+    
+    except Exception as e:
+        return JsonResponse({"message":"Something went wrong"})

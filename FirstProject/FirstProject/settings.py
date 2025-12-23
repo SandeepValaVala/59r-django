@@ -75,8 +75,16 @@ WSGI_APPLICATION = 'FirstProject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': '59r-db',
+        'USER':'root',
+        'HOST':'localhost',
+        'PASSWORD':'S@ndeep9347vs',
+        'PORT':'3306',
+        'OPTIONS':{
+            "charset":"utf8mb4",
+            "sql_mode":'STRICT_TRANS_TABLES'
+        }
     }
 }
 

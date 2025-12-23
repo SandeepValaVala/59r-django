@@ -32,5 +32,5 @@ urlpatterns = [
     path('second/',temp2),
     path('payment/',payment_api),
     path('products/<str:category>',productsByitem),
-    path('productbyrating/<str:rating>',productByrating)
+    path('prodbyrating/<str:rating>',productByrating)
 ]
