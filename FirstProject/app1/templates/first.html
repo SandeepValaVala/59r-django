@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zomato Landing Page Application</title>
+
+
+    <!-- Favicon -->
+    <link
+      rel="shortcut icon"
+      href="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Zomato_logo.png/220px-Zomato_logo.png"
+      type="image/x-icon"
+    />
+
+    <!-- connecting local style sheet -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- font awesome cdn -->
+    <!-- https://cdnjs.com/libraries/font-awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+      integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- poppins font by google fonts -->
+    <!-- https://fonts.google.com/selection/embed -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+.hero_section{
+    background-image: url(images/heroSectionBackground.png);
+    min-height: 60vh;
+    background-position: center;
+    background-size: cover;
+}
+
+.navbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    padding: 16px 48px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+}
+
+.navbar__menur_container{
+    display: flex;
+    gap: 20px;
+}
+
+.user__icon{
+    height: 30px;
+    width: 30px;
+    border: solid 1px white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    display: none;
+}
+
+
+.hero__section_contaier{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    height: calc(60vh - 60px)
+}
+
+
+.hero__section_logo{
+    width: 200px;
+    height: auto;
+}
+
+.hero__section_title{
+    text-align: center;
+    font-size: 30px;
+    font-weight: 400;
+    color: white;
+}
+
+.hero__section_input_container{
+    background-color: white;
+    padding: 10px;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 10px;
+}
+
+.input_container_location, .input_container_search{
+    border: none;
+    outline: none;
+    padding: 5px;
+}
+
+.input_container_location{
+    width: 35%;
+    border-right: 2px solid #e0e0e0;
+}
+
+.input_container_search {
+    width: 65%;
+}
+
+.container{
+    margin: 3rem auto;
+    width: 90%
+}
+
+.we__offer{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.we__offer_card{
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    /* background-color: yellow; */
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.we__offer_card:hover{
+    transform: scale(1.05);
+}
+
+.we__offer_card img{
+    width: 100%;
+    height: 230px;
+    object-position: center;
+    object-fit: cover;
+}
+
+.we__offer_content{
+    padding: 10px;
+}
+
+.we__offer_content h2{
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.we__offer_content p{
+    font-size: 12px;
+}
+
+
+.collections h1{
+    font-weight: 600;
+}
+
+.sub__heading_container{
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.sub__heading_container span:nth-child(2){
+    color: #ff7e8b;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.collections_card_container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+.collections_card_container .card{
+    height: 300px;
+    min-width: 240px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    position: relative;
+}
+
+.card1{
+    background-image: url('images/collection1.jpg');
+}
+
+.card2{
+    background-image: url('images/collection2.jpg');
+}
+
+.card3 {
+    background-image: url('images/collection3.jpg');
+}
+
+.card4 {
+    background-image: url('images/collection4.jpg');
+}
+
+.overlay{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 10px;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.2) 36%, rgba(0, 0, 0, 0.01) 66%, rgba(0, 0, 0, 0) 96%);
+    z-index: 1;
+}
+
+.card .content{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: white;
+    padding: 12px 16px;
+    font-size: 0.9rem;
+    z-index: 3;
+}
+
+.content h4{
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+.get__the_app{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(255,251,247);
+    /* background-color: red; */
+    width: 100%;
+    padding: 3rem 6rem;
+}
+
+.semiContainer{
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.left{
+    flex: 2;
+}
+
+.left img{
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.right{
+    flex: 3;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.right h1{
+    font-weight: 400;
+    font-size: 2rem;
+}
+
+.right p{
+    font-size: 0.8rem;
+}
+
+.radio__buttons_container{
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    gap: 1rem;
+}
+
+.radio__buttons_container div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.radio__buttons_container div input{
+    height: 15px;
+    width: 15px;
+    accent-color: rgb(239, 79, 95);
+}
+
+.input_container{
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.input_container button,.input_container input{
+    padding: 10px 12px;
+}
+
+.input_container input {
+    flex: auto;
+    border: 1.5px solid gray;
+    outline: none;
+    border-radius: 5px;
+}
+
+.input_container button{
+    border: none;
+    background-color: rgb(239, 79, 95);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.download__app_container{
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.download__app_container h5{
+    font-weight: 400;
+    color: gray;
+}
+
+.download__app_container div{
+    display: flex;
+    gap: 1rem;
+}
+
+.download__app_container div img{
+    width: 35%;
+}
+
+
+/* Media Queries */
+@media only screen and (max-width: 600px){
+    .user__icon{
+        display: flex;
+    }
+    .link{
+        display: none;
+    }
+    .hero_section{
+        min-height: 80vh;
+    }
+    .hero__section_input_container{
+        flex-direction: column;
+        background-color: transparent;
+        width: 100%;
+    }
+        .input_container_location,
+        .input_container_search {
+            padding: 15px;
+            border-radius: 10px;
+            width: 95%;
+        }
+        .hero__section_title{
+            font-size: 20px;
+            width: 95%;
+        }
+        .hero__section_contaier{
+            height: calc(80vh-60px);
+        }
+}
+
+@media only screen and (max-width: 1300px){
+    .left, .right{
+        flex: 1;
+    }
+
+    .semiContainer{
+        width: 80%;
+    }
+}
+
+
+@media only screen and (max-width: 900px) {
+
+   .get__the_app{
+    padding: 2rem;
+   }
+
+    .semiContainer {
+        width: 90%;
+    }
+}
+
+
+@media only screen and (max-width: 700px) {
+
+    .get__the_app {
+        padding: 3rem 0;
+    }
+
+    .semiContainer {
+        width: 90%;
+        flex-direction: column;
+    }
+}
+
+
+.footer{
+    width: 100%;
+}
+
+.footer_section1{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    margin: auto;
+}
+
+.footer_section1 img{
+    width: 120px;
+}
+
+.section1__buttonContainer{
+    display: flex;
+    gap: 1rem;
+}
+
+.section1__buttonContainer button{
+    border: 1px solid gray;
+    background-color: transparent;
+    padding: 5px;
+    width: 90px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+
+.navigation_container{
+    display: grid;
+    /* grid-template-columns: 1fr 1fr 1fr 1fr 1fr; */
+    grid-template-columns: repeat(5, 1fr);
+    width: 80%;
+    margin: auto;
+    padding: 3rem 0;
+    gap: 1rem;
+}
+
+.link__container{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.link__container h5{
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 5px;
+    letter-spacing: 0.8px;
+}
+
+.footer__link{
+    text-decoration: none;
+    color: gray;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.footer__link:hover{
+    color: black;
+}
+
+.setion__links_container button{
+  background-color: black;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+
+.setion__links_container button i{
+    color: white;
+    font-size: 13px;
+    /* display: flex;*/
+    /* align-items: center; */
+    /*justify-content: center; */
+}
+
+.footer__section_logos{
+    width: 100%;
+}
+
+@media only screen and (max-width: 900px){
+    .navigation_container{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .navigation_container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+@media only screen and (max-width: 400px) {
+    .navigation_container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+.disclamer{
+    width: 90%;
+    margin: auto;
+    color: gray;
+    font-size: 14px;
+    padding-top: 1.5rem;
+    border-top: 1px solid gray;
+}
+    </style>
+  </head>
+  <body>
+    <!-- Hero Section -->
+    <section class="hero_section">
+      <header>
+        <nav class="navbar">
+          <a href="#">Get the App</a>
+          <div class="navbar__menur_container">
+            <a href="#" class="link">Investor Relations</a>
+            <a href="#" class="link">Add Restaurant</a>
+            <a href="#" class="link">Login</a>
+            <a href="#" class="link">Signup</a>
+            <a href="#" class="user__icon">
+              <i class="fa-solid fa-user-secret"></i>
+            </a>
+          </div>
+        </nav>
+      </header>
+
+      <div class="hero__section_contaier">
+        <img
+          src="images/heroSectionLogo.png"
+          class="hero__section_logo"
+          alt="Zomato Logo"
+        />
+        <h1 class="hero__section_title">
+          Discover the best food & drinks in Hampi-Hospet
+        </h1>
+        <div class="hero__section_input_container">
+          <input
+            type="text"
+            class="input_container_location"
+            placeholder="Hampi-Hospet"
+          />
+          <input
+            type="text"
+            class="input_container_search"
+            placeholder="Search for a resturant, cusine or a dish"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Offer Section -->
+    <section class="container we__offer">
+      <div class="we__offer_card">
+        <img src="images/item1.png" alt="" />
+        <div class="we__offer_content">
+          <h2>Order Online</h2>
+          <p>Stay home and order to your doorstep</p>
+        </div>
+      </div>
+
+      <div class="we__offer_card">
+        <img src="images/item3.png" alt="" />
+        <div class="we__offer_content">
+          <h2>Dining</h2>
+          <p>View the citys favourite dining venue</p>
+        </div>
+      </div>
+
+      <div class="we__offer_card">
+        <img src="images/item2.png" alt="" />
+        <div class="we__offer_content">
+          <h2>Order Online</h2>
+          <p>Stay home and order to your doorstep</p>
+        </div>
+      </div>
+
+      <div class="we__offer_card">
+        <img src="images/item4.png" alt="" />
+        <div class="we__offer_content">
+          <h2>Nightlife and clubs</h2>
+          <p>Explore the citys top nightlife outlets</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Collections Section -->
+    <section class="container collections">
+      <h1>Collections</h1>
+      <div class="sub__heading_container">
+        <span>
+          Explore curated lists of top restaurants, cafes, pubs in Hospet-Hampi
+          based on trends</span
+        >
+        <span>All collections in Hospet-Hampi</span>
+      </div>
+      <div class="collections_card_container">
+        <div class="card card1">
+          <div class="overlay"></div>
+          <div class="content">
+            <h4>Live Cricket Screening</h4>
+            <span>56 Places</span>
+          </div>
+        </div>
+
+        <div class="card card2">
+          <div class="overlay"></div>
+          <div class="content">
+            <h4>Malnad Special</h4>
+            <span>12 Places</span>
+          </div>
+        </div>
+
+        <div class="card card3">
+          <div class="overlay"></div>
+          <div class="content">
+            <h4>Newly opened Restaurants</h4>
+            <span>36 Places</span>
+          </div>
+        </div>
+
+        <div class="card card4">
+          <div class="overlay"></div>
+          <div class="content">
+            <h4>Trending Pubs Near Me</h4>
+            <span>16 Places</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Get the App Section -->
+    <section class="container get__the_app">
+      <div class="semiContainer">
+        <div class="left">
+          <img src="images/mobileBanner.png" alt="" />
+        </div>
+        <div class="right">
+          <h1>Get the Zomato App</h1>
+          <p>We will send you a link, open it and download in your phone</p>
+          <div class="radio__buttons_container">
+            <div>
+              <input type="radio" id="email" name="download_app" />
+              <label for="email" style="font-size: 14px">Email</label>
+            </div>
+            <div>
+              <input type="radio" id="phone" name="download_app" />
+              <label for="phone" style="font-size: 14px">Phone</label>
+            </div>
+          </div>
+          <div class="input_container">
+            <input type="text" placeholder="Email" />
+            <button>Share App Link</button>
+          </div>
+          <div class="download__app_container">
+            <h5>Download App From</h5>
+            <div>
+              <img src="images/appleStore.png" alt="" />
+              <img src="images/playStore.png" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="container footer">
+      <div class="footer_section1">
+        <img src="images/logo.png" alt="" />
+        <div class="section1__buttonContainer">
+          <button>
+            <img
+              src="https://flagcdn.com/w40/in.png"
+              alt="Indian Flag"
+              style="width: 17px"
+            />India
+          </button>
+          <button><i class="fa fa-globe"></i>English</button>
+        </div>
+      </div>
+      <div class="navigation_container">
+        <div class="link__container">
+          <h5>ABOUT ZOMATO</h5>
+          <a href="#" class="footer__link">Who we are</a>
+          <a href="#" class="footer__link">Blogs</a>
+          <a href="#" class="footer__link">Work with us</a>
+          <a href="#" class="footer__link">Investor Relations</a>
+          <a href="#" class="footer__link">Report Fraud</a>
+          <a href="#" class="footer__link">Contact Us</a>
+        </div>
+
+        <div class="link__container">
+          <h5>ZOMAVERSE</h5>
+          <a href="#" class="footer__link">Zomato</a>
+          <a href="#" class="footer__link">Blinkit</a>
+          <a href="#" class="footer__link">Feeding India</a>
+          <a href="#" class="footer__link">Hyerpure</a>
+          <a href="#" class="footer__link">Zomaland</a>
+        </div>
+
+        <div class="link__container">
+          <h5>FOR RESTAURANTS</h5>
+          <a href="#" class="footer__link">Partner with us</a>
+          <a href="#" class="footer__link">Apps for you</a>
+          <br />
+          <h5>FOR ENTERPRISES</h5>
+          <a href="#" class="footer__link">Zomato for work</a>
+        </div>
+
+        <div class="link__container">
+          <h5>LEARN MORE</h5>
+          <a href="#" class="footer__link">Privacy</a>
+          <a href="#" class="footer__link">Security</a>
+          <a href="#" class="footer__link">Terms</a>
+          <a href="#" class="footer__link">Sitemap</a>
+        </div>
+
+        <div class="link__container">
+          <h5>Social Media</h5>
+          <div class="setion__links_container">
+            <button><i class="fa-brands fa-linkedin-in"></i></button>
+            <button><i class="fa-brands fa-instagram"></i></button>
+            <button><i class="fa-brands fa-twitter"></i></button>
+            <button><i class="fa-brands fa-youtube"></i></button>
+            <button><i class="fa-brands fa-facebook"></i></button>
+          </div>
+          <br />
+          <img
+            src="images/appleStore.png"
+            class="footer__section_logos"
+            alt="stores"
+          />
+          <img
+            src="images/playStore.png"
+            class="footer__section_logos"
+            alt="stores"
+          />
+        </div>
+      </div>
+      <!-- <hr /> -->
+      <div class="disclamer">
+        By continuing past this page, you agree to our Terms of Service, Cookie
+        Policy, Privacy Policy and Content Policies. All trademarks are
+        properties of their respective owners. 2008-2023 © Zomato™ Ltd. All
+        rights reserved.
+      </div>
+    </footer>
+  </body>
+</html>

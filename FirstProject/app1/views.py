@@ -45,6 +45,8 @@ def temp1(request):
     return render(request,"./simple.html")
 def temp2(request):
     return render(request,"./second.html")
+def temp3(request):
+    return render(request,"./first.html")
 
 def payment_api(request):
     orderid=request.GET.get("order")
@@ -217,3 +219,58 @@ def productByrating(request,rating):
     
     except Exception as e:
         return JsonResponse({"message":"Something went wrong"})
+
+
+
+jobs = [ 
+{"id": 1, "title": "Python Developer", "location": "Hyderabad", "experience": 2}, 
+{"id": 2, "title": "Java Developer", "location": "Bangalore", "experience": 3}, 
+{"id": 3, "title": "Frontend Developer", "location": "Hyderabad", "experience": 1}, 
+{"id": 4, "title": "Data Analyst", "location": "Chennai", "experience": 2} 
+]
+
+def job(request):
+    if request.method == 'GET':
+        return JsonResponse({"jobs":jobs})
+
+def jobId(request,id):
+    try:
+        if request.method == 'GET':
+            filteredData = []
+            for job in jobs:
+                if job["id"] == id:
+                    filteredData.append(job)
+            if len(filteredData) != 0:
+                return JsonResponse(filteredData[0])
+                # return JsonResponse(job)
+            return JsonResponse({"error":"Job not found"},status=404)
+              
+    except Exception as e:
+        return JsonResponse({"message":"Something went wrong"})
+    
+    
+def jobBylocation(request,location):
+    try:
+        if request.method == 'GET':
+            filteredData = []
+            for job in jobs:
+                if job["location"].lower()==location.lower():
+                    filteredData.append(job)
+            if len(filteredData) > 0:
+                return JsonResponse({"total no.of records":len(filteredData),"data":filteredData})
+        return JsonResponse({"error": "No jobs found for this location"})
+    
+    except Exception as e:
+        return JsonResponse({"message":"Something went wrong"})
+    
+    
+# def jobId(request,id):
+#     try:
+#         if request.method == 'GET':
+#             for job in jobs:
+#                 if job["id"]==id:
+#                     return JsonResponse(job)
+#                 return JsonResponse({"error":"Job not found"})
+              
+#     except Exception as e:
+#         return JsonResponse({"message":"Something went wrong"})
